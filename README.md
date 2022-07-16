@@ -521,17 +521,19 @@ Manifest
 ========
 Repository Link: https://github.com/domdecanio/montecarlo
 
-List of files in repository:
-   /montecarlo
-      ```python
-      __init.py
-      montecarlo.py
-      ```
-   montecarlo_demo.ipynb
-   montecarlo_tests.py
-   montecarlo_test_results.txt
-   Final-Project-Reoprt.ipynb
-   README.md
-   setup.py
-   LICENSE
+List of files in repository:  
+   /montecarlo  
+         ```python  
+         __init__.py
+         ```  
+         ```python
+         montecarlo.py
+         ```  
+   montecarlo_demo.ipynb  
+   montecarlo_tests.py  
+   montecarlo_test_results.txt  
+   Final-Project-Reoprt.ipynb  
+   README.md  
+   setup.py  
+   LICENSE  
    .gitignore   
