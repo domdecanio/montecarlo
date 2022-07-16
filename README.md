@@ -72,22 +72,27 @@ To instatiate a "Die" object, you must pass a list of face values upon instantia
    
 By default, instantiating a "Die" object creates a list of weights corresponding to the list of face values passed. All default face value weights are 1. Therefore, rolling a die whose weights have not been altered will result in a roll in which each face has an equal probability of being selected. 
 
-### Using a "Die" object
+### Use a "Die" object
 Now that the "Die" object has been created, any of its methods can be used to interact with the object. See the "Api Description" section to see all of these methods.
 
 
 Creating & Using "Game" objects
 -------------------------------
+### Create a "Game" object
+To instatiate a "Game" object, you must pass a list of "Die" objects. This list of dice represent the dice to be rolled simultaneously during any "play" of the game.
 
-
+**Note:** All "Die" objects within the list passed must have the same face values, though their face weights can differ.
+### Use a "Game" object
 
 Creating & Using "Analyzer" objects
 -----------------------------------
-
+### Create a "Analyzer" object
+### Use a "Analyzer" object
 
 Api Description
 ===============
 This Section of the documentation describes all classes of the montecarlo package, along with all their methods and attributes. This is formatted as a heirarchy, using the doc strings included in the package.
+
 
 "Die" Class
 -----------
@@ -166,6 +171,7 @@ class Die():
         """
 ```
 
+
 "Game" Class
 -----------
 ```python
@@ -195,7 +201,123 @@ class Game():
 
 ### .__init__()
 ```python
-
+   def __init__(self, dice):
+        """
+        Purpose: Initialize a "Game" object.
+        
+        Inupts: dice - (list) A list composed of "Die" objects, which indicate the number of dice 
+                              to be rolled each time the game is played. 
+                        NOTE: All "Die" objects included in this list must have the same value and
+                              number of faces.
+        Output: ("Game" object) "Game" object which is composed of len(dice) number of "Die" objects.
+        """
 ```
+
+### .play(num_rolls)
+```python
+   def play(self, num_rolls):
+        """
+        Purpose: Generate outcomes of a given quantity of rolls of the given dice objects.
+        
+        Input: num_rolls - (int) Indicates the number of times the dice will be rolled.
+        Output: (None) Results are stored in a private pd.Dataframe that is an attribute of the 
+                       "Game" object.
+        """
+```
+
+### .show(df_format="wide")
+```python
+   def show(self, df_format="wide"):
+        """
+        Purpose: Show the user the results of the most recently played game.
+        
+        Input: df_format - ("wide" or "narrow") Chooses the format in which the dataframe of results 
+                                                will display.
+        Output: (pd.DataFrame) The Dataframe object containing the results of the most recently played 
+                               game.
+        """
+```
+
+
+"Analyzer" Class
+-----------
+```python
+class Analyzer():
+    """
+    A class used to analyze a "Game" object. 
+    
+    Attributes
+    ----------
+    dice_faces : list
+        List of the faces of the dice used in the "Game" object to be analyzed.
+    game_df : pd.DataFrame
+        Dataframe containing the results of the most recently played game of the "Game" object.
+    
+    Methods
+    ------
+    __init__(game_object)
+        Initializes an "Analyzer" object using a "Game" object in the parameter "game_object".
+    jackpot()
+        Returns the number of rolls in which all dice faces were matching.
+    combo()
+        Count all unique combinations of die faces in the game, and sort them.
+    face_count_per_row()
+        Count occurances of each face value in each roll of the game.
+    """
+```
+
+### .__init__(game_object)
+```python
+   def __init__(self, game_object):
+        """
+        Purpose: Initialize an "Analyzer" object, which allows the user to conduct analysis on a "Game"
+        object after that object has been passed the .play() method at least once. The subject of 
+        analysis is the "Game" object's most recent play when it was used to instatiate the "Analyzer"
+        object.
+        
+        Input: game_object - ("Game" object) A "Game" object that has been created using a list containing 
+                                             one or more "Die" object(s).
+        Output: (None) Generates the attributes:  dice_faces
+                                                  game_df
+        """
+```
+
+### .jackpot()
+```python
+   def jackpot(self):
+        """
+        Purpose: Creates a dataframe indicating all rows where the values for each die were equivalent.
+                 A roll (row) of the results dataframe where all the die faces are equivalent is a 
+                 "jackpot". This dataframe contains the original index of the roll, as well as the 
+                 values of each "Die" object.
+        
+        Input: (None)
+        Output: (int) Number of jackpots in the "Game" object's results.
+        """
+```
+
+### .combo()
+```python
+   def combo(self):
+        """
+        Purpose: Count all unique combinations of roll results that appear in the "Game" object's results, 
+                 sort them by frequency of appearance, and save this information to a dataframe.
+        
+        Input: (None)
+        Output: (None) The results are saved to a pd.DataFrame as the class attribute "game_combo".
+        """
+```
+
+### .face_count_per_row()
+```python
+   def face_count_per_row(self):
+        """
+        Purpose: Count the occurances of each die face value within a game's roll.
+        
+        Input: (None)
+        Output: (None) The results are saved in the pd.DataFrame class attribute "game_face_counts".
+        """
+```
+
 Manifest
 ========
