@@ -1,7 +1,9 @@
 # Metadata
-Package facilitating Monte Carlo simulations of various games of chance.
-
-
+text
+##Package facilitating Monte Carlo simulations of various games of chance.
+text
+### 3 ticks
+text
 # Synopsis
 
 
