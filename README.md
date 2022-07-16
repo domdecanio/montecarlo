@@ -12,7 +12,7 @@ Installing montecarlo
 Steps required to successfully install the montecarlo package:
 
 1. Clone the package github repository to your local machine.  
-Link to the repository: https://github.com/domdecanio/montecarlo
+Repository Link: https://github.com/domdecanio/montecarlo
 
 2. Navigate to the package directory and run one of the following commands in your terminal:
 
@@ -73,10 +73,85 @@ To instatiate a "Die" object, you must pass a list of face values upon instantia
 By default, instantiating a "Die" object creates a list of weights corresponding to the list of face values passed. All default face value weights are 1. Therefore, rolling a die whose weights have not been altered will result in a roll in which each face has an equal probability of being selected. 
 
 ### "Die" object Usage
-Now that the "Die" object has been created, any of its methods can be used to interact with the object. See the "Api Description" section to see all of these methods.
-
+There are 3 methods in the "Die" class besides the initializing method. These 3 methods are:
+  * `.change_weights(face_value, new_weight)` - Changes the weight value of one or more faces.
+  * `.roll(num_rolls=1)` - Uses the face value weights to select a face value.
+  * `.show()` - Shows the user the faces and weights of the "Die" object.
 
 More information on these methods can be found in the "Api Description" section of this document.
+
+#### `.change_weights(face_value, new_weight)`
+The method .change_weights() is used to change the weight corresponding to one or more face values on the "Die" object. Thus, valid inputs for the parameter face_value include: int, str, or a list containing int and str values. Valid inputs for the parameter new_weight include: int, or a list containing int values.
+
+   Example 1:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coin.show()
+   ```
+   |   | **0** | **1** |
+   |:-:|:-:|:-:|
+   | **0** | H | 1 |
+   | **1** | T | 1 |
+
+   ```python
+   coin.change_weights('H', 5)
+   coin.show()
+   ```
+   |   | **0** | **1** |
+   |:-:|:-:|:-:|
+   | **0** | H | 5 |
+   | **1** | T | 1 |
+   
+   
+   Example 2:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coin.show()
+   ```
+   |   | **0** | **1** |
+   |:-:|:-:|:-:|
+   | **0** | H | 1 |
+   | **1** | T | 1 |
+
+   ```python
+   coin.change_weights(['H', 'T'], [2, 6])
+   coin.show()
+   ```
+   |   | **0** | **1** |
+   |:-:|:-:|:-:|
+   | **0** | H | 2 |
+   | **1** | T | 6 |
+   
+   
+#### `.roll(num_rolls=1)`
+The method .roll() is used to select 1 or more face values of the "Die" object using the face weights. The default argument for the parameter "num_rolls" is 1, and any other integer can be specified to alter the number of selections that are made. The output of this method is a list of the roll results.
+
+   Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coin.roll(5)
+   ```
+   Output:
+   ```python
+   ['T', 'T', 'H', 'T', 'T']
+   ```
+
+#### `.show()`
+The .show() method does not have any parameters. Passing the .show() method on a "Die" object outputs the face values and weights of that die.
+
+   Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coin.show()
+   ```
+   |   | **0** | **1** |
+   |:-:|:-:|:-:|
+   | **0** | H | 1 |
+   | **1** | T | 1 |
 
 
 Creating & Using "Game" objects
@@ -97,8 +172,8 @@ To instatiate a "Game" object, you must pass a list of "Die" objects. This list 
 
 ### "Game" object Usage
 There are only 2 methods in the "Game" class besides the initializing method. These two methods are:
-  * `.play(num_rolls)` - rolls the "Die" objects used to instantiate the "Game" object
-  * `.show()` - shows the user the results of these rolls
+  * `.play(num_rolls)` - Rolls the "Die" objects used to instantiate the "Game" object.
+  * `.show()` - Shows the user the results of these rolls.
 
 In order to interact with a game using the .show() method, the "Game" object must first be played using the .play() method. 
 
@@ -181,7 +256,7 @@ Output:
    
 
 #### `.combo()`
-There are no parameters for the .combo() method. The output of this method is a pandas dataframe indicating all combinations of dice faces per roll that appeared in the game results. These combinations areaggregated by frequency, and sorted with the most frequent combination appearing in the first row of the dataframe.
+There are no parameters for the .combo() method. There is no output of this method. It generates a pandas dataframe indicating all combinations of dice faces per roll that appeared in the game results, and saves this dataframe as a class attribute. These combinations areaggregated by frequency, and sorted with the most frequent combination appearing in the first row of the dataframe.
 
 Example:
    ```python
@@ -197,11 +272,23 @@ Example:
 
 
 #### `.face_count_per_row()`
+There are no parameters for the .face_count_per_row() method, nor are there outputs of this method. It generates a pandas dataframe indicating a the number of times each dice face appeared per roll in the game results, and saves this dataframe as a class attribute.
 
+Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coins = [coin, coin, coin]
+   game = montecarlo.Game(coins)
+   game.play(4)
+   analyzer = montecarlo.Analyzer(game)
+   
+   analyzer.face_count_per_row()
+   ```
 
 Api Description
 ===============
-This Section of the documentation describes all classes of the montecarlo package, along with all their methods and attributes. The followign documentation uses the doc strings included in the montecarlo package.
+This Section of the documentation describes all classes of the montecarlo package, along with all their methods and attributes. The following documentation uses the doc strings included in the montecarlo package.
 
 
 "Die" Class
@@ -432,3 +519,19 @@ class Analyzer():
 
 Manifest
 ========
+Repository Link: https://github.com/domdecanio/montecarlo
+
+List of files in repository:
+   /montecarlo
+      ```python
+      __init.py
+      montecarlo.py
+      ```
+   montecarlo_demo.ipynb
+   montecarlo_tests.py
+   montecarlo_test_results.txt
+   Final-Project-Reoprt.ipynb
+   README.md
+   setup.py
+   LICENSE
+   .gitignore   
