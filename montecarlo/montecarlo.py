@@ -58,9 +58,10 @@ class Die():
         Purpose: This method allows the user to change the weights of the die after it has 
                  been initialized.
         
-        Inputs: face_value - (str or int) The face of the die object to which you will assign a new weight.
-                new_weight - (int) The new weight for this face.
-        Output: (None) Weights are changed in the object's attribute.
+        Inputs: face_value - (str or int) OR (list) containing (str or int). The face(s) of the die 
+                             object(s) to which you will assign a new weight.
+                new_weight - (int) OR (list) containing (int). The new weight(s) for face(s).
+        Output: (None) Weight(s) changed in the object's attribute.
         """
         if isinstance(face_value, list):
             for index, value in enumerate(face_value):
