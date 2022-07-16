@@ -19,15 +19,17 @@ There are two methods for successfully importing this package into your desired 
 Within your python file, you must then specify the package name as a prefix for calling any of the classes within the montecarlo package.
 
    Examples:  
-    x = montecarlo.Die( )  
-    x = montecarlo.Game( )  
-    x = montecarlo.Analyzer( )
+   ```python
+   x = montecarlo.Die()  
+   x = montecarlo.Game()  
+   x = montecarlo.Analyzer()
+   ```
 
 2. **from montecarlo import Die, Game, Analyzer**  
 There are many variations on this menthod, such as "from x import * ", and they interact with the package in the same way. Using this method, you may call the classes within the montecarlo package directly.
 
    Examples:  
-   ```
+   ```python
    x = Die( )  
    x = Game( )  
    x = Analyzer( )
