@@ -27,10 +27,11 @@ Within your python file, you must then specify the package name as a prefix for 
 There are many variations on this menthod, such as "from x import * ", and they interact with the package in the same way. Using this method, you may call the classes within the montecarlo package directly.
 
    Examples:  
-    ```x = Die( )  
-    x = Game( )  
-    x = Analyzer( )```
-
+   ```
+   x = Die( )  
+   x = Game( )  
+   x = Analyzer( )
+   ```
 
 Creating & Using "Die" objects
 ------------------------------
