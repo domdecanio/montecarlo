@@ -14,20 +14,20 @@ Alt-Importing montecarlo
 -------------------------
 There are two methods for successfully importing this package into your desired python workspace:
 1. **import montecarlo**  
-...Within your python file, you must then specify the package name as a prefix for calling any of the classes within the montecarlo package.
+Within your python file, you must then specify the package name as a prefix for calling any of the classes within the montecarlo package.
 
-Examples:  
-montecarlo.Die()  
-montecarlo.Game()  
-montecarlo.Analyzer()
+⋅⋅⋅Examples:  
+⋅⋅⋅⋅montecarlo.Die()  
+⋅⋅⋅⋅montecarlo.Game()  
+⋅⋅⋅⋅montecarlo.Analyzer()
 
 2. **from montecarlo import Die, Game, Analyzer**  
-...There are many variations on this menthod, such as "from x import * ", and they interact with the package in the same way. Using this method, you may call the classes within the montecarlo package directly.  
+There are many variations on this menthod, such as "from x import * ", and they interact with the package in the same way. Using this method, you may call the classes within the montecarlo package directly.  
 
-...Examples:  
-....Die()  
-....Game()  
-....Analyzer() 
+⋅⋅⋅Examples:  
+Die()  
+Game()  
+Analyzer() 
 
 
 ## Alt-Creating & Using "Die" objects
