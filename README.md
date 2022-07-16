@@ -5,7 +5,7 @@ Author: Dominick DeCanio
 
 Synopsis
 ============
-This section contains code demonstrating how each class in this package is used.
+This section contains code demonstrating how each class in this package is used. More code examples can be found in the file montecarlo_demo.ipynb located in the repository for this package.
 
 Installing montecarlo
 ---------------------
@@ -27,7 +27,7 @@ The terminal should display "install montecarlo successful" if the package was i
 Importing montecarlo
 --------------------
 There are two methods for successfully importing this package into your desired python workspace:
-1. **import montecarlo**  
+1. **`import montecarlo`**  
 Within your python file, you must then specify the package name as a prefix for calling any of the classes within the montecarlo package.
 
    Example:  
@@ -39,7 +39,7 @@ Within your python file, you must then specify the package name as a prefix for 
    x = montecarlo.Analyzer()
    ```
 
-2. **from montecarlo import Die, Game, Analyzer**  
+2. **`from montecarlo import Die, Game, Analyzer`**  
 There are many variations on this menthod, such as "from x import * ", and they interact with the package in the same way. Using this method, you may call the classes within the montecarlo package directly.
 
    Example:  
@@ -61,8 +61,8 @@ To instatiate a "Die" object, you must pass a list of face values upon instantia
    face_values1 = ['H', 'T']
    face_values2 = [1, 2, 3, 4, 5, 6]
    
-   x1 = montecarlo.Die(face_values1)
-   x2 = montecarlo.Die(face_values2)
+   die1 = montecarlo.Die(face_values1)
+   die2 = montecarlo.Die(face_values2)
    ```
 
 **Note:** It is important to understand the connection between the "Die" object's attributes, and the Monte Carlo simulation it represents. Each "Die" object has both face values and weights.
@@ -72,8 +72,11 @@ To instatiate a "Die" object, you must pass a list of face values upon instantia
    
 By default, instantiating a "Die" object creates a list of weights corresponding to the list of face values passed. All default face value weights are 1. Therefore, rolling a die whose weights have not been altered will result in a roll in which each face has an equal probability of being selected. 
 
-### Use a "Die" object
+### "Die" object Usage
 Now that the "Die" object has been created, any of its methods can be used to interact with the object. See the "Api Description" section to see all of these methods.
+
+
+More information on these methods can be found in the "Api Description" section of this document.
 
 
 Creating & Using "Game" objects
@@ -82,16 +85,123 @@ Creating & Using "Game" objects
 To instatiate a "Game" object, you must pass a list of "Die" objects. This list of dice represent the dice to be rolled simultaneously during any "play" of the game.
 
 **Note:** All "Die" objects within the list passed must have the same face values, though their face weights can differ.
-### Use a "Game" object
+
+   Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   
+   coins = [coin, coin, coin]
+   game = montecarlo.Die(coins)
+   ```
+
+### "Game" object Usage
+There are only 2 methods in the "Game" class besides the initializing method. These two methods are:
+  * `.play(num_rolls)` - rolls the "Die" objects used to instantiate the "Game" object
+  * `.show()` - shows the user the results of these rolls
+
+In order to interact with a game using the .show() method, the "Game" object must first be played using the .play() method. 
+
+More information on these methods can be found in the "Api Description" section of this document.
+
+#### `.play(num_rolls)`
+To play the game, simply pass the method on a "Game" object, entering the number of times you want to roll the dice for the argument num_rolls. The num_rolls parameter defaults to 1, so, if you pass the method without an argument, the "Die" objects used to instantiate your "Game" object will be rolled once.
+
+   Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coins = [coin, coin, coin]
+   game = montecarlo.Game(coins)
+   
+   game.play(4)
+   ```
+#### `.show()`
+The .show() method does not have any parameters. Merely use the method on a "Game" object that has been played, and the results of the game will be returned as a pandas dataframe.
+
+Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coins = [coin, coin, coin]
+   game = montecarlo.Game(coins)
+   game.play(4)
+   
+   game.show()
+   ```
+   |   | **0** | **1** | **2** |
+   |:-:|:-:|:-:|:-:|
+   | **0** | T | H | H |
+   | **1** | T | T | T |
+   | **2** | T | H | T |
+   | **3** | H | H | H |
 
 Creating & Using "Analyzer" objects
 -----------------------------------
-### Create a "Analyzer" object
-### Use a "Analyzer" object
+### Create an "Analyzer" object
+The purpose of an "Analyzer" object is to conduct analysis on the most recently played game of a "Game" object. Therefore, to instatiate an "Analyzer" object properly, you must pass a "Game" object that has already been played so there is an output to analyze.
+
+   Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coins = [coin, coin, coin]
+   game = montecarlo.Game(coins)
+   game.play(4)
+   
+   analyzer = montecarlo.Analyzer(game)
+   ```
+   
+### "Analyzer" object Usage
+Once an "Analyzer" object has been created, any of its methods can be used to analyze the "Game" object's play results. There are 3 methods in the "Analyzer" class besides the initializing method. These methods are:
+  * `.jackpot()` - Returns the number of rolls in which all dice faces were matching.
+  * `.combo()` - Counts all unique combinations of die faces in the game, and sorts them.
+  * `.face_count_per_row()` - Counts occurances of each face value in each roll of the game.
+
+More information on these methods can be found in the "Api Description" section of this document.
+
+#### `.jackpot()`
+There are no parameters for the .jackpot() method. The output of this method is an integer indicating the number of rolls of the game in which the face values of all dice were matching.
+
+Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coins = [coin, coin, coin]
+   game = montecarlo.Game(coins)
+   game.play(4)
+   analyzer = montecarlo.Analyzer(game)
+   
+   analyzer.jackpot()
+   ```
+Output:
+   ```python
+   2
+   ```
+   
+
+#### `.combo()`
+There are no parameters for the .combo() method. The output of this method is a pandas dataframe indicating all combinations of dice faces per roll that appeared in the game results. These combinations areaggregated by frequency, and sorted with the most frequent combination appearing in the first row of the dataframe.
+
+Example:
+   ```python
+   face_values = ['H', 'T']
+   coin = montecarlo.Die(face_values)
+   coins = [coin, coin, coin]
+   game = montecarlo.Game(coins)
+   game.play(4)
+   analyzer = montecarlo.Analyzer(game)
+   
+   analyzer.combo()
+   ```
+
+
+#### `.face_count_per_row()`
+
 
 Api Description
 ===============
-This Section of the documentation describes all classes of the montecarlo package, along with all their methods and attributes. This is formatted as a heirarchy, using the doc strings included in the package.
+This Section of the documentation describes all classes of the montecarlo package, along with all their methods and attributes. The followign documentation uses the doc strings included in the montecarlo package.
 
 
 "Die" Class
@@ -142,9 +252,10 @@ class Die():
         Purpose: This method allows the user to change the weights of the die after it has 
                  been initialized.
         
-        Inputs: face_value - (str or int) The face of the die object to which you will assign a new weight.
-                new_weight - (int) The new weight for this face.
-        Output: (None) Weights are changed in the object's attribute.
+        Inputs: face_value - (str or int) OR (list) containing (str or int). The face(s) of the die 
+                             object(s) to which you will assign a new weight.
+                new_weight - (int) OR (list) containing (int). The new weight(s) for face(s).
+        Output: (None) Weight(s) changed in the object's attribute.
         """
 ```
 
